@@ -3,3 +3,10 @@
  .font-poppins {
      font-family: "Poppins", sans-serif;
  }
+
+   .header-section{
+    background-image:url("images/bgbanner.png");
+    background-repeat: no-repeat;
+    object-fit: cover;
+    background-size: cover;
+   }
