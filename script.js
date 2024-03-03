@@ -107,7 +107,7 @@ let count = 1 ;
     cardContainer.textContent = '';
     if(catCard.length > 0){
      catCard.forEach((item)=>{
-        console.log(item);
+        // console.log(item);
 
         const div = document.createElement('div');
         div.innerHTML = ` 
@@ -144,7 +144,7 @@ let count = 1 ;
     else{
         alert('No data available');
     }
-    console.log(catCard)
+    // console.log(catCard)
     
     //hide loading
     loading(false);
