@@ -4,6 +4,7 @@
     const allData = data.posts;
 
     const cardContainer = document.getElementById('card-container');
+    cardContainer.textContent = '';
      allData.forEach((item)=>{
         // console.log(item.posted_time);
         const div = document.createElement('div');
