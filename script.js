@@ -1,9 +1,14 @@
  const allPosts =async(value) =>{
     const response = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${value}`);
     const data = await response.json();
-    const allData = data.posts;
-
-    const cardContainer = document.getElementById('card-container');
+    const allData = data.posts; 
+    // if(allData.length > 0){
+    //     document.getElementById('loading-section').classList.add('hidden');
+    // }
+    // else{
+    //     document.getElementById('loading-section').classList.remove('hidden');
+    // }
+    const cardContainer = document.getElementById('card-container'); 
     cardContainer.textContent = '';
      allData.forEach((item)=>{
         // console.log(item.posted_time);
@@ -30,7 +35,7 @@
                             <p><i class="fa-regular fa-eye"></i><span> ${item.view_count}</span></p>
                             <p><i class="fa-regular fa-clock"></i> <span> ${item.posted_time}</span> min</p>
                             <div class="text-center">
-                                <button onclick="clickHandle('${item.title}','${item.view_count}')" class=" btn  rounded-full bg-green-500 "><i class="fa-regular fa-envelope-open text-2xl font-bold text-white"></i></button>
+                                <button id="card-btn" onclick="clickHandle('${item.title}','${item.view_count}')" class=" btn  rounded-full bg-green-500 "><i class="fa-regular fa-envelope-open text-2xl font-bold text-white"></i></button>
                             </div>
                         </div>
                     </div>
@@ -38,6 +43,9 @@
         `;
         cardContainer.appendChild(div); 
      })
+
+      // hide loading 
+    loading(false);
  }
 
 
@@ -73,18 +81,16 @@
             </div>
         `;
         latestPostContainer.appendChild(div); 
-    })
-
+    }) 
  }
 
 let count = 1 ;
  const clickHandle =(title,view)=>{
-console.log(title,view);
- 
+// console.log(title,view); 
      const mark = document.getElementById('mark');
      mark.innerText = count;
-     count = count +1 ;
-
+     count = count +1 ; 
+    //  document.getElementById('card-btn').setAttribute('disabled',true)
      const clickShowCard = document.getElementById('click-show-card');
      const div = document.createElement('div');
      div.innerHTML = `
@@ -93,12 +99,13 @@ console.log(title,view);
         <p class="flex mt-5 lg:w-[20%]"><i class="fa-regular fa-eye">  <span>${view}</span></i></p>
     </div>
      `;
-     clickShowCard.appendChild(div);
+     clickShowCard.appendChild(div); 
 
  }
 
 
  const searchPosts=()=>{  
+    loading(true);
     const value = document.getElementById('search-feild').value;
     // console.log(value);
     if(value){
@@ -106,8 +113,19 @@ console.log(title,view);
     }
     else{
         alert('No data available')
-    }
+    } 
  }
+
+
+ const loading = (isLoading) =>{
+    const load = document.getElementById('loading-section');
+    if(isLoading){
+        load.classList.remove('hidden'); 
+    }
+    else{
+        load.classList.add('hidden');
+    }
+}
 
  latestPosts();
  
