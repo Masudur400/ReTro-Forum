@@ -41,6 +41,45 @@
         
      })
  }
+
+
+ const latestPosts = async() =>{
+    const response = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts');
+    const data = await response.json();
+    const latestData= data;
+    const latestPostContainer = document.getElementById('latestPost-container');
+    latestPostContainer.textContent = '';
+    latestData.forEach((item)=>{
+        console.log(item.profile_image);
+        const div = document.createElement('div');
+        div.innerHTML = `
+        <div class="bg-gray-50 border-2 border-gray-200 rounded-xl p-4">
+                <div class="mb-5">
+                    <img class="w-full" src="${item.cover_image}" alt="">
+                </div>
+                <div class="space-y-2">
+                    <p><i class="fa-solid fa-calendar-days opacity-70"> <span>${item.author?.posted_date || 'No publish date'}</span></i></p>
+                    <h3 class="text-lg font-bold">${item.title}</h3>
+                    <p class="text-base font-medium opacity-80">${item.description}</p>
+                </div>
+                <div class="flex gap-5 mt-2">
+                    <div>
+                        <img class="w-[60px] h-[60px] rounded-full" src="${item.profile_image}" alt="">
+                    </div>
+                    <div>
+                        <p class="text-base lg:text-lg font-bold">${item.author?.name}</p>
+                        <p class="text-base">${item.author?.designation || 'Unknown'}</p>
+                    </div>
+            </div> 
+            </div>
+        `;
+        latestPostContainer.appendChild(div);
+
+    })
+
+ }
+
+ latestPosts();
  
  allPosts();
  
