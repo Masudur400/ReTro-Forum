@@ -30,7 +30,7 @@
                             <p><i class="fa-regular fa-eye"></i><span> ${item.view_count}</span></p>
                             <p><i class="fa-regular fa-clock"></i> <span> ${item.posted_time}</span> min</p>
                             <div class="text-center">
-                                <button id="card-btn" onclick="clickHandle('${item.title}','${item.view_count}')" class=" btn  rounded-full bg-green-500 "><i class="fa-regular fa-envelope-open text-2xl font-bold text-white"></i></button>
+                                <button id="card-btn" onclick="clickHandle('${escape(item.title)}','${item.view_count}')" class=" btn  rounded-full bg-green-500 "><i class="fa-regular fa-envelope-open text-2xl font-bold text-white"></i></button>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@ let count = 1 ;
      const div = document.createElement('div');
      div.innerHTML = `
      <div class="lg:flex gap-10 mb-6 bg-white rounded-lg p-4">
-        <h3 class="text-base lg:w-[80%] lg:text-lg font-bold">${title}</h3>
+        <h3 class="text-base lg:w-[80%] lg:text-lg font-bold">${unescape(title)}</h3>
         <p class="flex mt-5 lg:w-[20%]"><i class="fa-regular fa-eye">  <span>${view}</span></i></p>
     </div>
      `;
