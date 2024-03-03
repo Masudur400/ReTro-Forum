@@ -1,13 +1,13 @@
-  
-  const cardContainer = document.getElementById('card-container'); 
 
- const allPosts =async() =>{
+const cardContainer = document.getElementById('card-container');
+
+const allPosts = async () => {
     const response = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
     const data = await response.json();
     const allData = data.posts;
-    
+
     cardContainer.textContent = '';
-     allData.forEach((item)=>{
+    allData.forEach((item) => {
         // console.log(item.isActive);  
         const div = document.createElement('div');
         div.innerHTML = ` 
@@ -16,7 +16,7 @@
                         <div class="absolute">
                             <img class="w-[31%] mb-5 lg:w-[24%] rounded-lg" src="${item.image}"  alt="">
                         </div>
-                        <div class= "w-[10px] h-[10px] rounded-full ${item.isActive? 'bg-green-500': 'bg-red-500'} relative left-20  lg:top-0 lg:left-36"> 
+                        <div class= "w-[10px] h-[10px] rounded-full ${item.isActive ? 'bg-green-500' : 'bg-red-500'} relative left-20  lg:top-0 lg:left-36"> 
                         </div>
                     </div>
                     <div class="lg:w-full">
@@ -38,21 +38,21 @@
                     </div>
                 </div>  
         `;
-        cardContainer.appendChild(div); 
-     }) 
-      // hide loading 
+        cardContainer.appendChild(div);
+    })
+    // hide loading 
     loading(false);
- }
+}
 
 
- const latestPosts = async() =>{
+const latestPosts = async () => {
     const response = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts');
     const data = await response.json();
-    const latestData= data;
+    const latestData = data;
     const latestPostContainer = document.getElementById('latestPost-container');
     latestPostContainer.textContent = '';
 
-    latestData.forEach((item)=>{
+    latestData.forEach((item) => {
         // console.log(item.profile_image);
         const div = document.createElement('div');
         div.innerHTML = `
@@ -76,47 +76,47 @@
             </div> 
             </div>
         `;
-        latestPostContainer.appendChild(div); 
-    }) 
- }
+        latestPostContainer.appendChild(div);
+    })
+}
 
-let count = 1 ;
- const clickHandle =(title,view)=>{
-// console.log(title,view); 
-     const mark = document.getElementById('mark');
-     mark.innerText = count;
-     count = count +1 ;  
-     
-     const clickShowCard = document.getElementById('click-show-card');
-     const div = document.createElement('div');
-     div.innerHTML = `
+let count = 1;
+const clickHandle = (title, view) => {
+    // console.log(title,view); 
+    const mark = document.getElementById('mark');
+    mark.innerText = count;
+    count = count + 1;
+
+    const clickShowCard = document.getElementById('click-show-card');
+    const div = document.createElement('div');
+    div.innerHTML = `
      <div class="lg:flex gap-10 mb-6 bg-white rounded-lg p-4">
         <h3 class="text-base lg:w-[80%] lg:text-lg font-bold">${unescape(title)}</h3>
         <p class="flex mt-5 lg:w-[20%]"><i class="fa-regular fa-eye">  <span>${view}</span></i></p>
     </div>
      `;
-     clickShowCard.appendChild(div);  
- }
+    clickShowCard.appendChild(div);
+}
 
 
 //  search content 
- const searchCard = async (value)=>{
-    const response = await fetch( `https://openapi.programming-hero.com/api/retro-forum/posts?category=${value}`);
+const searchCard = async (value) => {
+    const response = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${value}`);
     const data = await response.json();
-    const  catCard= data.posts;
+    const catCard = data.posts;
     cardContainer.textContent = '';
-    if(catCard.length > 0){
-     catCard.forEach((item)=>{
-        // console.log(item);
+    if (catCard.length > 0) {
+        catCard.forEach((item) => {
+            // console.log(item);
 
-        const div = document.createElement('div');
-        div.innerHTML = ` 
+            const div = document.createElement('div');
+            div.innerHTML = ` 
                 <div class="lg:flex mb-10 bg-gray-200 rounded-lg p-4">
                     <div class="lg:w-[40%] mb-24 lg:mb-0 ">
                         <div class="absolute">
                             <img class="w-[31%] mb-5 lg:w-[24%] rounded-lg" src="${item.image}"  alt="">
                         </div>
-                        <div class= "w-[10px] h-[10px] rounded-full ${item.isActive? 'bg-green-500': 'bg-red-500'} relative left-20  lg:top-0 lg:left-36"> 
+                        <div class= "w-[10px] h-[10px] rounded-full ${item.isActive ? 'bg-green-500' : 'bg-red-500'} relative left-20  lg:top-0 lg:left-36"> 
                         </div>
                     </div>
                     <div class="lg:w-full">
@@ -138,49 +138,48 @@ let count = 1 ;
                     </div>
                 </div>  
         `;
-        cardContainer.appendChild(div);  
-    })
+            cardContainer.appendChild(div);
+        })
     }
-    else{
+    else {
         alert('No data available');
     }
     // console.log(catCard)
-    
+
     //hide loading
     loading(false);
- }
+}
 
 
- //search feild
- const searchPosts=()=>{  
+//search feild
+const searchPosts = () => {
     loading(true);
-    const value = document.getElementById('search-feild').value; 
-    
+    const value = document.getElementById('search-feild').value;
+
     // console.log(value);
-    if(value){
+    if (value) {
         searchCard(value);
     }
-    else{
+    else {
         alert('No data available')
-    }  
- }
-
-
- const loading = (isLoading) =>{
-    const load = document.getElementById('loading-section');
-    if(isLoading){
-        load.classList.remove('hidden'); 
     }
-    else{
+}
+
+
+const loading = (isLoading) => {
+    const load = document.getElementById('loading-section');
+    if (isLoading) {
+        load.classList.remove('hidden');
+    }
+    else {
         load.classList.add('hidden');
     }
 }
 
- latestPosts();
- 
- allPosts();  
+latestPosts();
 
-  
+allPosts();
 
-  
- 
+
+
+
